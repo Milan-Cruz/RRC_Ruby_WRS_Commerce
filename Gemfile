@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem "sassc"
+
 # Admin interface
 gem "activeadmin"
 gem "devise"

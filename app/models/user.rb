@@ -7,6 +7,12 @@ class User < ApplicationRecord
   has_many :searches
   has_many :orders
 
-  # Custom validations
+  # Validations
   validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
+
+  # Define searchable attributes for Ransack
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id name email created_at updated_at]
+  end
 end

@@ -1,0 +1,9 @@
+/log/*
+/tmp/*
+/vendor/*
+.DS_Store
+/storage/*
+/config/master.key
+/config/credentials.yml.enc
+/node_modules/
+.byebug_history

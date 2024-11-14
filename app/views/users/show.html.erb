@@ -1,11 +1,13 @@
-<h1>My Profile</h1>
+<h2>User Profile</h2>
 
-<p><strong>Name:</strong> <%= @user.name %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Address:</strong> <%= @user.address %></p>
-<p><strong>City:</strong> <%= @user.city %></p>
-<p><strong>Postal Code:</strong> <%= @user.postal_code %></p>
-<p><strong>Province:</strong> <%= @user.province %></p>
+<div class="profile-info">
+  <p><strong>Name:</strong> <%= @user.name %></p>
+  <p><strong>Email:</strong> <%= @user.email %></p>
+  <p><strong>Address:</strong> <%= @user.address %></p>
+  <p><strong>City:</strong> <%= @user.city %></p>
+  <p><strong>Postal Code:</strong> <%= @user.postal_code %></p>
+  <p><strong>Province:</strong> <%= @user.province %></p>
+</div>
 
 <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
-<%= link_to "Back", root_path, class: "btn btn-secondary" %>
+<%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>

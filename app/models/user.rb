@@ -8,11 +8,12 @@ class User < ApplicationRecord
   has_many :orders
 
   # Validations
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :address, :city, :postal_code, :province, presence: true
 
   # Define searchable attributes for Ransack
   def self.ransackable_attributes(auth_object = nil)
-    %w[id name email created_at updated_at]
+    %w[id name email address city postal_code province created_at updated_at]
   end
 end

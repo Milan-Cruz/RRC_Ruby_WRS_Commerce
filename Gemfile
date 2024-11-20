@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "sassc-rails", ">= 2.1.2"
 gem "bootstrap", "~> 5.3.0"
 gem "popper_js", "~> 2.11.6"
+gem "faker"
 
 # Admin interface
 gem "activeadmin"

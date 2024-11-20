@@ -1,0 +1,10 @@
+<h1><%= @category.name %></h1>
+
+<h2>Cars in this category:</h2>
+<ul>
+  <% @cars.each do |car| %>
+    <li>
+      <%= link_to "#{car.make} #{car.model} (#{car.year})", car_path(car) %>
+    </li>
+  <% end %>
+</ul>

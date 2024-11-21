@@ -1,37 +1,5 @@
 <% # Header %>
-<header class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="/">WRS Garage</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/categories">Categories</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/cars">Search</a>
-        </li>
-        <% if user_signed_in? %>
-          <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<%= destroy_user_session_path %>" data-method="delete">Logout</a>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <a class="nav-link" href="/users/sign_in">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/users/sign_up">Sign Up</a>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</header>
+<%= render "shared/header" %>
 
 <% # Hero Section %>
 <section class="hero bg-primary text-white text-center py-5">
@@ -47,16 +15,8 @@
   <div class="container">
     <h2 class="text-center mb-4">Popular Categories</h2>
     <div class="row">
-      <% ["SUVs", "Sedans", "Trucks"].each do |category| %>
-        <div class="col-md-4 text-center">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><%= category %></h5>
-              <a href="/categories?name=<%= category %>" class="btn btn-primary">Explore</a>
-            </div>
-          </div>
-        </div>
-      <% end %>
+    <% # render partial: "categories/category_card", collection: @categories, as: :category %>
+      <%= render partial: "categories/category_card", collection: @categories.select { |c| ["SUVs", "Sedans", "Trucks"].include?(c.name) }, as: :category %>
     </div>
   </div>
 </section>
@@ -83,6 +43,4 @@
 </section>
 
 <% # Footer %>
-<footer class="bg-dark text-white text-center py-3">
-  <p>&copy; <%= Date.current.year %> WRS Garage. All rights reserved.</p>
-</footer>
+<%= render "shared/footer" %>

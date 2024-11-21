@@ -1,0 +1,158 @@
+/* line 13, app/assets/stylesheets/custom.scss */
+body {
+  background-color: #F8F9FA;
+  color: #232C33;
+  font-family: Arial, sans-serif;
+}
+
+/* line 18, app/assets/stylesheets/custom.scss */
+body h1 {
+  color: #FFFFFF;
+}
+
+/* line 22, app/assets/stylesheets/custom.scss */
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  color: #0D6EFD;
+}
+
+/* line 30, app/assets/stylesheets/custom.scss */
+body a {
+  color: #0D6EFD;
+  text-decoration: none;
+}
+
+/* line 34, app/assets/stylesheets/custom.scss */
+body a:hover {
+  color: #0257d5;
+}
+
+/* line 41, app/assets/stylesheets/custom.scss */
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* line 46, app/assets/stylesheets/custom.scss */
+.btn.primary {
+  background-color: #0D6EFD;
+  color: #F18F01;
+}
+
+/* line 50, app/assets/stylesheets/custom.scss */
+.btn.primary:hover {
+  background-color: #408cfd;
+}
+
+/* line 55, app/assets/stylesheets/custom.scss */
+.btn.secondary {
+  background-color: #B5B2C2;
+  color: #232C33;
+}
+
+/* line 59, app/assets/stylesheets/custom.scss */
+.btn.secondary:hover {
+  background-color: #d0ced9;
+}
+
+/* line 66, app/assets/stylesheets/custom.scss */
+.card {
+  background-color: #DADFF7;
+  border: 1px solid #a5c9fe;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* line 73, app/assets/stylesheets/custom.scss */
+.card h5 {
+  color: #0D6EFD;
+}
+
+/* line 77, app/assets/stylesheets/custom.scss */
+.card p {
+  color: #232C33;
+}
+
+/* line 81, app/assets/stylesheets/custom.scss */
+.card .card-footer {
+  text-align: right;
+  color: #B5B2C2;
+}
+
+/* line 88, app/assets/stylesheets/custom.scss */
+section.categories {
+  padding: 40px 0;
+}
+
+/* line 91, app/assets/stylesheets/custom.scss */
+section.categories h2 {
+  color: #0D6EFD;
+  margin-bottom: 20px;
+}
+
+/* line 96, app/assets/stylesheets/custom.scss */
+section.categories .card {
+  background-color: #DADFF7;
+  border: 1px solid #a5c9fe;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* line 103, app/assets/stylesheets/custom.scss */
+section.categories .card h5 {
+  color: #0D6EFD;
+}
+
+/* line 107, app/assets/stylesheets/custom.scss */
+section.categories .card .btn {
+  background-color: #232C33;
+  color: #F18F01;
+}
+
+/* line 113, app/assets/stylesheets/custom.scss */
+section.categories .card .btn:hover {
+  background-color: #384651;
+}
+
+/* line 121, app/assets/stylesheets/custom.scss */
+footer {
+  background-color: #0D6EFD;
+  color: #F18F01;
+  text-align: center;
+  padding: 10px;
+}
+
+/* line 127, app/assets/stylesheets/custom.scss */
+footer a {
+  color: #F18F01;
+}
+
+/* line 130, app/assets/stylesheets/custom.scss */
+footer a:hover {
+  color: #fea627;
+}
+
+/* line 137, app/assets/stylesheets/custom.scss */
+header {
+  background-color: #B5B2C2;
+  color: #232C33;
+  padding: 15px 0;
+}
+
+/* line 142, app/assets/stylesheets/custom.scss */
+header .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0D6EFD;
+}
+
+/* line 147, app/assets/stylesheets/custom.scss */
+header .navbar-brand:hover {
+  color: #599bfe;
+}

@@ -1,3 +1,6 @@
+<% # Header %>
+<%= render "shared/header" %>
+
 <h1><%= @category.name %></h1>
 
 <h2>Cars in this category:</h2>
@@ -12,3 +15,6 @@
 <div class="pagination d-flex justify-content-center mt-4">
   <%= paginate @cars %> <!-- Kaminari helper for pagination links -->
 </div>
+
+<% # Footer %>
+<%= render "shared/footer" %>

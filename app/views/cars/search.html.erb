@@ -1,3 +1,6 @@
+<% # Header %>
+<%= render "shared/header" %>
+
 <div class="container py-5">
   <h2>Search Results for "<%= @query %>"</h2>
   <% if @cars.any? %>
@@ -19,3 +22,6 @@
     <p>No results found.</p>
   <% end %>
 </div>
+
+<% # Footer %>
+<%= render "shared/footer" %>

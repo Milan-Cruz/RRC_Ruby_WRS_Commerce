@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show]
 
   # Cars
+  get "cars", to: "cars#index"
+
   resources :cars, only: [:index, :show] do
     collection do
       get "search"

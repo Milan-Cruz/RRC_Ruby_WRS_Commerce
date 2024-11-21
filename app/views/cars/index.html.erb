@@ -1,22 +1,74 @@
 <div class="container py-5">
-  <h2>All Cars</h2>
-  <div class="row">
-    <% @cars.each do |car| %>
+  <h2 class="text-center mb-4">Search Cars</h2>
+
+  <!-- Search Form -->
+  <form action="<%= cars_path %>" method="get" class="mb-4">
+    <div class="row g-3">
+      <!-- Keyword Input -->
+      <div class="col-md-6">
+        <input 
+          type="text" 
+          name="keyword" 
+          class="form-control" 
+          placeholder="Search by make, model, or features..." 
+          value="<%= params[:keyword] %>"
+        >
+      </div>
+
+      <!-- Category Dropdown -->
       <div class="col-md-4">
-        <div class="card">
-          <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="Car Image">
-          <div class="card-body">
-            <h5 class="card-title"><%= car.make %> <%= car.model %></h5>
-            <p class="card-text">Price: $<%= car.price %></p>
-            <a href="<%= car_path(car) %>" class="btn btn-primary">View Details</a>
+        <select name="category_id" class="form-select">
+          <option value="">All Categories</option>
+          <% Category.all.each do |category| %>
+            <option value="<%= category.id %>" <%= "selected" if params[:category_id].to_i == category.id %>>
+              <%= category.name %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+
+      <!-- Search Button -->
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Results -->
+  <% if @cars.any? %>
+    <div class="row">
+      <% @cars.each do |car| %>
+        <div class="col-md-6 mb-3">
+          <div class="card d-flex flex-row align-items-center p-2" style="height: 120px;">
+            <!-- Car Info -->
+            <div class="me-2" style="flex: 2;">
+              <h6 class="card-title mb-1">
+                <a href="<%= car_path(car) %>" class="text-decoration-none text-primary">
+                  <%= car.make %> <%= car.model %> (<%= car.year %>)
+                </a>
+              </h6>
+              <p class="card-text mb-0"><small>Price: $<%= number_to_currency(car.price, unit: "", precision: 2) %></small></p>
+              <p class="card-text"><small>Mileage: <%= car.mileage %> km</small></p>
+            </div>
+            <!-- Car Image -->
+            <img 
+              src="https://via.placeholder.com/90x120" 
+              alt="<%= car.make %> <%= car.model %> Image" 
+              class="rounded"
+              style="height: 100%; flex: 1; object-fit: cover;"
+            >
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-warning text-center mt-4">
+      No cars found. Try refining your search.
+    </div>
+  <% end %>
 
   <!-- Centered Pagination -->
   <div class="d-flex justify-content-center mt-4">
-    <%= paginate @cars %> <!-- Kaminari helper for pagination links -->
+    <%= paginate @cars %>
   </div>
 </div>

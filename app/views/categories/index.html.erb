@@ -6,10 +6,15 @@
         <div class="card text-center">
           <div class="card-body">
             <h5 class="card-title"><%= category.name %></h5>
-            <a href="/categories/<%= category.id %>" class="btn btn-primary">Explore</a>
+            <a href="<%= category_path(category) %>" class="btn btn-primary">Explore</a>
           </div>
         </div>
       </div>
     <% end %>
+  </div>
+
+  <!-- Add pagination links -->
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @categories %>
   </div>
 </div>

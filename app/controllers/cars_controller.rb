@@ -1,6 +1,6 @@
 class CarsController < ApplicationController
   def index
-    @cars = Car.all
+    @cars = Car.page(params[:page]).per(3)
   end
 
   def search

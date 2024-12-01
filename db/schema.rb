@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_14_090406) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_01_063050) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -105,6 +105,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_090406) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "gst"
+    t.decimal "pst"
+    t.decimal "hst"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -115,6 +118,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_090406) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["car_id"], name: "index_price_histories_on_car_id"
+  end
+
+  create_table "provinces", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "gst", precision: 5, scale: 2, default: "0.0"
+    t.decimal "pst", precision: 5, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "searches", force: :cascade do |t|
@@ -138,6 +149,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_090406) do
     t.string "city"
     t.string "postal_code"
     t.string "province"
+    t.integer "province_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

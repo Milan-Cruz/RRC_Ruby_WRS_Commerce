@@ -1,0 +1,53 @@
+<div class="container my-5">
+  <h1 class="text-center mb-4">Your Shopping Cart</h1>
+
+  <% if @cart_items.blank? %>
+    <div class="alert alert-warning text-center">
+      Your cart is empty.
+    </div>
+    <div class="text-center">
+      <%= link_to "Continue Shopping", cars_path, class: "btn btn-primary mt-3" %>
+    </div>
+  <% else %>
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr class="text-center">
+          <th>Car</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cart_items.each do |car_id, quantity| %>
+          <% car = Car.find_by(id: car_id) %>
+          <% if car %>
+            <tr class="text-center align-middle">
+              <td><strong><%= car.make %> <%= car.model %></strong></td>
+              <td>
+                <%= form_with url: update_item_cart_path, method: :post, local: true, class: "d-flex justify-content-center align-items-center" do %>
+                  <input type="hidden" name="car_id" value="<%= car.id %>">
+                  <%= number_field_tag :quantity, quantity, min: 1, class: "form-control form-control-sm d-inline-block w-auto me-2" %>
+                  <%= submit_tag "Update", class: "btn btn-sm btn-secondary", aria: { label: "Update quantity for #{car.make} #{car.model}" } %>
+                <% end %>
+              </td>
+              <td>$<%= number_to_currency(car.price, unit: "") %></td>
+              <td>$<%= number_to_currency(car.price * quantity, unit: "") %></td>
+              <td>
+                <%= button_to "Remove", remove_item_cart_path(car_id: car.id), method: :delete, class: "btn btn-sm btn-danger", aria: { label: "Remove #{car.make} #{car.model} from cart" } %>
+              </td>
+            </tr>
+          <% else %>
+            <!-- Optional: Log or display an error message for missing car -->
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <%= link_to "Continue Shopping", cars_path, class: "btn btn-primary" %>
+      <p class="h5 mb-0"><strong>Total:</strong> $<%= number_to_currency(@cart_items.sum { |car_id, quantity| Car.find_by(id: car_id)&.price.to_f * quantity }, unit: "") %></p>
+      <%= link_to "Checkout", new_order_path, class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>

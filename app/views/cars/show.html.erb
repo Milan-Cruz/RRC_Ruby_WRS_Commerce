@@ -1,10 +1,7 @@
-<% # Header %>
-<%= render "shared/header" %>
-
 <div class="container my-5">
   <div class="card shadow">
     <div class="card-header bg-primary text-white">
-      <h1 class="h3 mb-0"><%= @car.make %> <%= @car.model %> (<%= @car.year %>)</h1>
+      <h1 class="h3 mb-0 text-white"><%= @car.make %> <%= @car.model %> (<%= @car.year %>)</h1>
     </div>
     <div class="card-body">
       <div class="row">
@@ -25,6 +22,12 @@
               <em>No categories assigned</em>
             <% end %>
           </p>
+          <!-- Add to Cart Button -->
+          <%= button_to "Add to Cart", add_item_cart_path(car_id: @car.id, quantity: 1),
+                        method: :post,
+                        class: "btn btn-primary btn-sm d-inline-block mt-2" %>
+
+
         </div>
       </div>
     </div>
@@ -34,6 +37,3 @@
     </div>
   </div>
 </div>
-
-<% # Footer %>
-<%= render "shared/footer" %>

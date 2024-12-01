@@ -1,0 +1,30 @@
+<div class="container my-5">
+  <h1 class="text-center">Order Details</h1>
+  <p><strong>Order ID:</strong> <%= @order.id %></p>
+  <p><strong>Date:</strong> <%= @order.created_at.strftime("%B %d, %Y") %></p>
+  <p><strong>Status:</strong> <%= @order.status %></p>
+  <p><strong>Address:</strong> <%= @order.address %>, <%= @order.city %>, <%= @order.province.name %></p>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Car</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_items.each do |item| %>
+        <tr>
+          <td><%= item.car.make %> <%= item.car.model %></td>
+          <td><%= item.quantity %></td>
+          <td>$<%= number_to_currency(item.price_at_purchase, unit: "") %></td>
+          <td>$<%= number_to_currency(item.quantity * item.price_at_purchase, unit: "") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p><strong>Subtotal:</strong> $<%= number_to_currency(@order.total_price - @order.gst - @order.pst - @order.hst, unit: "") %></p>
+  <p><strong

@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
+  get "orders/new"
+  get "orders/create"
+  get "orders/index"
+  get "orders/show"
   # Root path
   root "home#index"
 
   # Categories
   resources :categories, only: [:index, :show]
 
-  # Cars
-  get "cars", to: "cars#index"
+  # Orders
+  resources :orders, only: [:new, :create, :index, :show]
 
+  # Cars
   resources :cars, only: [:index, :show] do
     collection do
       get "search"
@@ -16,6 +21,13 @@ Rails.application.routes.draw do
 
   # User profile
   get "profile", to: "users#show", as: :user_profile
+
+  # Carts
+  resource :cart, only: [:show] do
+    post :add_item
+    post :update_item
+    delete :remove_item
+  end
 
   # Devise routes for users and admin users
   devise_for :users, controllers: {

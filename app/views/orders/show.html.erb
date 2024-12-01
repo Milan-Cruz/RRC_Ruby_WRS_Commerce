@@ -3,7 +3,7 @@
   <p><strong>Order ID:</strong> <%= @order.id %></p>
   <p><strong>Date:</strong> <%= @order.created_at.strftime("%B %d, %Y") %></p>
   <p><strong>Status:</strong> <%= @order.status %></p>
-  <p><strong>Address:</strong> <%= @order.address %>, <%= @order.city %>, <%= @order.province.name %></p>
+  <p><strong>Address:</strong> <%= @order.user.address %>, <%= @order.user.city %>, <%= @order.user.province.name %></p>
 
   <table class="table table-bordered">
     <thead>
@@ -26,5 +26,10 @@
     </tbody>
   </table>
 
-  <p><strong>Subtotal:</strong> $<%= number_to_currency(@order.total_price - @order.gst - @order.pst - @order.hst, unit: "") %></p>
-  <p><strong
+  <p><strong>Subtotal:</strong> $<%= number_to_currency(@order.total_price - (@order.gst || 0) - (@order.pst || 0), unit: "") %></p>
+  <p><strong>GST:</strong> $<%= number_to_currency(@order.gst || 0, unit: "") %></p>
+  <p><strong>PST:</strong> $<%= number_to_currency(@order.pst || 0, unit: "") %></p>
+  <p><strong>Total:</strong> $<%= number_to_currency(@order.total_price, unit: "") %></p>
+
+  <%= link_to "Back to Orders", user_profile_path, class: "btn btn-secondary" %>
+</div>

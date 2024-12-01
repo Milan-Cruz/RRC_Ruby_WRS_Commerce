@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get "orders/new"
-  get "orders/create"
-  get "orders/index"
-  get "orders/show"
   # Root path
   root "home#index"
 
@@ -11,6 +7,9 @@ Rails.application.routes.draw do
 
   # Orders
   resources :orders, only: [:new, :create, :index, :show]
+
+  # Checkout (singular resource for single checkout instance)
+  resource :checkout, only: [:show, :create]
 
   # Cars
   resources :cars, only: [:index, :show] do
@@ -22,7 +21,7 @@ Rails.application.routes.draw do
   # User profile
   get "profile", to: "users#show", as: :user_profile
 
-  # Carts
+  # Cart (singular resource for single cart instance)
   resource :cart, only: [:show] do
     post :add_item
     post :update_item

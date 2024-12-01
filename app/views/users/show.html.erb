@@ -1,6 +1,10 @@
+<% # Header %>
+<%= render "shared/header" %>
+
 <h2 class="text-center mb-4">User Profile</h2>
 
 <div class="container">
+  <!-- Profile Information Card -->
   <div class="card mb-4">
     <div class="card-body">
       <h4 class="card-title">Profile Information</h4>
@@ -10,13 +14,43 @@
         <li class="list-group-item"><strong>Address:</strong> <%= @user.address.present? ? @user.address : "Not Provided" %></li>
         <li class="list-group-item"><strong>City:</strong> <%= @user.city.present? ? @user.city : "Not Provided" %></li>
         <li class="list-group-item"><strong>Postal Code:</strong> <%= @user.postal_code.present? ? @user.postal_code : "Not Provided" %></li>
-        <li class="list-group-item"><strong>Province:</strong> <%= @user.province.present? ? @user.province : "Not Provided" %></li>
+        <li class="list-group-item"><strong>Province:</strong> <%= @user.province.present? ? @user.province.name : "Not Provided" %></li>
       </ul>
     </div>
   </div>
 
+  <!-- Orders Section -->
+  <div class="mb-4">
+    <h4 class="text-center mb-3">Your Orders</h4>
+    <% if @user.orders.any? %>
+      <div class="row">
+        <% @user.orders.each do |order| %>
+          <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Order #<%= order.id %></h5>
+                <p class="card-text">
+                  <strong>Status:</strong> <%= order.status.capitalize %><br>
+                  <strong>Total:</strong> $<%= number_to_currency(order.total_price, unit: "") %><br>
+                  <strong>Date:</strong> <%= order.created_at.strftime("%B %d, %Y") %>
+                </p>
+                <a href="<%= order_path(order) %>" class="btn btn-sm btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-info text-center">You have no orders yet.</div>
+    <% end %>
+  </div>
+
+  <!-- Action Buttons -->
   <div class="d-flex justify-content-between">
     <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
     <%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>
   </div>
 </div>
+
+<% # Footer %>
+<%= render "shared/footer" %>

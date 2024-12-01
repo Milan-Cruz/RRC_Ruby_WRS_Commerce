@@ -1,0 +1,43 @@
+<div class="container my-5">
+  <h1 class="text-center mb-4">Checkout</h1>
+
+  <% if @cart_items.blank? %>
+    <div class="alert alert-warning text-center">
+      Your cart is empty.
+    </div>
+    <div class="text-center">
+      <%= link_to "Continue Shopping", cars_path, class: "btn btn-primary mt-3" %>
+    </div>
+  <% else %>
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr class="text-center">
+          <th>Car</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cart_items.each do |car_id, quantity| %>
+          <% car = Car.find_by(id: car_id) %>
+          <% next unless car %>
+          <tr class="text-center align-middle">
+            <td><strong><%= car.make %> <%= car.model %></strong></td>
+            <td><%= quantity %></td>
+            <td>$<%= number_to_currency(car.price, unit: "") %></td>
+            <td>$<%= number_to_currency(car.price * quantity, unit: "") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p><strong>Subtotal:</strong> $<%= number_to_currency(@total, unit: "") %></p>
+    <p><strong>GST:</strong> $<%= number_to_currency(@taxes[:gst], unit: "") %></p>
+    <p><strong>PST:</strong> $<%= number_to_currency(@taxes[:pst], unit: "") %></p>
+    <p><strong>Total:</strong> $<%= number_to_currency(@total + @taxes[:total], unit: "") %></p>
+
+    <div class="text-center mt-4">
+      <%= button_to "Confirm Order", checkout_path, method: :post, class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>

@@ -1,31 +1,68 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      order: "Order"
+      order_item: "Order Item"
+      car: "Car"
+      user: "User"
+      province: "Province"
+
+    attributes:
+      order:
+        id: "Order ID"
+        total_price: "Total Price"
+        status: "Status"
+        created_at: "Order Date"
+        updated_at: "Updated Date"
+        gst: "GST"
+        pst: "PST"
+        hst: "HST"
+
+      order_item:
+        car: "Car"
+        quantity: "Quantity"
+        price_at_purchase: "Price at Purchase"
+        total: "Total"
+
+      user:
+        name: "Name"
+        email: "Email"
+        address: "Address"
+        city: "City"
+        province: "Province"
+        postal_code: "Postal Code"
+
+  admin:
+    actions:
+      confirm: "Confirm"
+      cancel: "Cancel"
+      back_to_orders: "Back to Orders"
+      view_order: "View Order"
+      edit_order: "Edit Order"
+      delete_order: "Delete Order"
+      create_order: "Create Order"
+
+  cart:
+    empty: "Your cart is empty."
+    subtotal: "Subtotal"
+    gst: "GST"
+    pst: "PST"
+    total: "Total"
+    continue_shopping: "Continue Shopping"
+    checkout: "Checkout"
+    add_to_cart: "Add to Cart"
+    update_quantity: "Update Quantity"
+    remove_item: "Remove Item"
+    confirm_order: "Confirm Order"
+
+  messages:
+    order:
+      success: "Order placed successfully!"
+      failure: "Checkout failed: %{error_message}"
+
+  buttons:
+    add: "Add"
+    edit: "Edit"
+    delete: "Delete"
+    update: "Update"
+    back: "Back"

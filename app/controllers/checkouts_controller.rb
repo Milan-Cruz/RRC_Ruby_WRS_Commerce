@@ -1,5 +1,5 @@
 class CheckoutsController < ApplicationController
-  before_action :authenticate_user! # Ensure the user is logged in
+  before_action :authenticate_user!
   before_action :initialize_cart
 
   def show
@@ -23,32 +23,49 @@ class CheckoutsController < ApplicationController
       subtotal = calculate_total
       taxes = calculate_taxes(subtotal)
 
-      order = current_user.orders.create!(
+      @order = current_user.orders.create!(
+        total_price: subtotal + taxes[:total],
+        gst: taxes[:gst],
+        pst: taxes[:pst],
+        status: params[:payment_method] == "paypal" ? "new" : "paid", # Status ajustado
+      )
+
+      add_order_items(@order)
+
+      session[:cart] = {} # Zera o carrinho após a criação da ordem
+
+      if params[:payment_method] == "paypal"
+        # Redireciona para PayPal
+        approval_url = initialize_paypal_payment(@order)
+        redirect_to approval_url
+      else
+        # Redireciona para o show da ordem
+        redirect_to order_path(@order), notice: "Order placed successfully! Pay later in your account."
+      end
+    end
+  rescue StandardError => e
+    redirect_to checkout_path, alert: "Checkout failed: #{e.message}"
+  end
+
+  def finalize_order
+    ActiveRecord::Base.transaction do
+      subtotal = calculate_total
+      taxes = calculate_taxes(subtotal)
+
+      @order = current_user.orders.create!(
         total_price: subtotal + taxes[:total],
         gst: taxes[:gst],
         pst: taxes[:pst],
         status: "new",
       )
 
-      car_ids = session[:cart].keys
-      cars = Car.where(id: car_ids).index_by(&:id)
-
-      session[:cart].each do |car_id, quantity|
-        car = cars[car_id.to_i]
-        next unless car # Skip invalid or missing cars
-
-        order.order_items.create!(
-          car: car,
-          quantity: quantity,
-          price_at_purchase: car.price,
-        )
-      end
+      add_order_items(@order)
+      session[:cart] = {} # Zera o carrinho
     end
 
-    session[:cart] = {} # Clear the cart after checkout
-    redirect_to user_profile_path, notice: "Order placed successfully!"
+    redirect_to order_path(@order), notice: "Order finalized successfully! You can pay later."
   rescue StandardError => e
-    redirect_to checkout_path, alert: "Checkout failed: #{e.message}"
+    redirect_to checkout_path, alert: "An error occurred while finalizing the order: #{e.message}"
   end
 
   private
@@ -76,5 +93,32 @@ class CheckoutsController < ApplicationController
     gst = subtotal * gst_rate
     pst = subtotal * pst_rate
     { gst: gst, pst: pst, total: gst + pst }
+  end
+
+  def add_order_items(order)
+    car_ids = session[:cart].keys
+    cars = Car.where(id: car_ids).index_by(&:id)
+
+    session[:cart].each do |car_id, quantity|
+      car = cars[car_id.to_i]
+      next unless car # Ignora carros inválidos
+
+      order.order_items.create!(
+        car: car,
+        quantity: quantity,
+        price_at_purchase: car.price,
+      )
+    end
+  end
+
+  def initialize_paypal_payment(order)
+    pay_pal_client = PayPalClient.new
+    result = pay_pal_client.create_order(order)
+
+    if result[:status] == "CREATED"
+      result[:approval_url]
+    else
+      raise "Failed to initialize PayPal payment: #{result[:error]}"
+    end
   end
 end

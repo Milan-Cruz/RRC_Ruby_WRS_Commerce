@@ -1,0 +1,26 @@
+<div class="container my-5">
+  <h1 class="text-center">Fake PayPal Payment</h1>
+  <p class="text-center">You are about to pay for your order (fake simulation).</p>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @order.id %></td>
+        <td>$<%= number_to_currency(@order.total_price, unit: "") %></td>
+        <td><%= @order.status %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <%= button_to "Confirm Fake Payment", fake_paypal_confirm_path, method: :post, class: "btn btn-success mx-2" %>
+    <%= button_to "Cancel Fake Payment", fake_paypal_cancel_path, method: :post, class: "btn btn-danger mx-2" %>
+  </div>
+</div>

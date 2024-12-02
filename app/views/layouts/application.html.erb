@@ -18,6 +18,8 @@
 
     <!-- Importmap and JavaScript -->
     <%= javascript_importmap_tags %>
+    <script src="https://www.paypal.com/sdk/js?client-id=<%= Rails.application.credentials.dig(:paypal, :client_id) %>"></script>
+
   </head>
 
   <body>

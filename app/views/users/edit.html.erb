@@ -3,30 +3,30 @@
 <%= form_for @user do |f| %>
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :address %>
-    <%= f.text_field :address %>
+    <%= f.text_field :address, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :city %>
-    <%= f.text_field :city %>
+    <%= f.text_field :city, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :province %>
-    <%= f.select :province, ["Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan"], prompt: "Select Province" %>
+    <%= f.select :province_id, Province.all.collect { |p| [p.name, p.id] }, { include_blank: "Select Province" }, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :postal_code %>
-    <%= f.text_field :postal_code %>
+    <%= f.text_field :postal_code, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update Profile" %>
+    <%= f.submit "Update Profile", class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :orders, only: [:new, :create, :index, :show]
 
   # Checkout (singular resource for single checkout instance)
-  resource :checkout, only: [:show, :create]
+  resource :checkout, only: [:show, :create] do
+    post :finalize_order, on: :collection # Action to finalize order without payment
+  end
 
   # Cars
   resources :cars, only: [:index, :show] do
@@ -26,6 +28,19 @@ Rails.application.routes.draw do
     post :add_item
     post :update_item
     delete :remove_item
+  end
+
+  # Fake PayPal Simulation
+  get "fake_paypal", to: "fake_payments#show", as: :fake_paypal
+  post "fake_paypal/confirm", to: "fake_payments#confirm", as: :fake_paypal_confirm
+  post "fake_paypal/cancel", to: "fake_payments#cancel", as: :fake_paypal_cancel
+
+  # Payments (for PayPal integration)
+  resources :payments, only: [:create] do
+    collection do
+      get :success # Para redirecionamento de sucesso do PayPal
+      get :cancel  # Para redirecionamento de cancelamento do PayPal
+    end
   end
 
   # Devise routes for users and admin users

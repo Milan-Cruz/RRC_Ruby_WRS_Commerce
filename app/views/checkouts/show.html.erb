@@ -1,3 +1,6 @@
+<% # Header %>
+<%= render "shared/header" %>
+
 <div class="container my-5">
   <h1 class="text-center mb-4">Checkout</h1>
 
@@ -37,7 +40,22 @@
     <p><strong>Total:</strong> $<%= number_to_currency(@total + @taxes[:total], unit: "") %></p>
 
     <div class="text-center mt-4">
-      <%= button_to "Confirm Order", checkout_path, method: :post, class: "btn btn-success" %>
+      <!-- Fake PayPal Button -->
+      <%= link_to "Fake Pay with PayPal", fake_paypal_path, class: "btn btn-warning mb-3" %>
+    
+      <!-- Real PayPal Button -->
+      <%= button_to "Pay with PayPal", payments_path(payment_method: "paypal"),
+                    method: :post, class: "btn btn-primary mb-3" %>
+    
+      <!-- Finalize Order Button -->
+      <%= button_to "Finalize Order (Pay Later)", finalize_order_checkout_path,
+                    method: :post, class: "btn btn-secondary" %>
     </div>
+  
+  
   <% end %>
 </div>
+
+
+<% # Footer %>
+<%= render "shared/footer" %>

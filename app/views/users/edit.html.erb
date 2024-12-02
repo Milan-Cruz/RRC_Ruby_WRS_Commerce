@@ -1,4 +1,4 @@
-<h2>Edit Profile</h2>
+<h2>Edit Profile Noelia</h2>
 
 <%= form_for @user do |f| %>
   <div class="field">
@@ -16,9 +16,12 @@
     <%= f.text_field :city, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :province %>
-    <%= f.select :province_id, Province.all.collect { |p| [p.name, p.id] }, { include_blank: "Select Province" }, class: "form-control" %>
+  <div class="mb-3">
+    <%= f.label :province_id, "Province", class: "form-label" %>
+    <%= f.select :province_id,
+                 Province.all.collect { |p| [p.name, p.id] },
+                 { prompt: "Select Province", selected: @user.province_id },
+                 class: "form-control" %>
   </div>
 
   <div class="field">

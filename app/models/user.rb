@@ -4,7 +4,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Associations
-  belongs_to :province
+  belongs_to :province, optional: true
   has_many :searches
   has_many :orders
 

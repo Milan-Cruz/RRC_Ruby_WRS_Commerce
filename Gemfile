@@ -5,6 +5,9 @@ gem "bootstrap", "~> 5.3.0"
 gem "popper_js", "~> 2.11.6"
 gem "faker"
 
+# Payment
+gem "paypal-checkout-sdk"
+
 # Admin interface
 gem "activeadmin"
 gem "devise"

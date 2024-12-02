@@ -238,6 +238,9 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    paypal-checkout-sdk (1.0.6)
+      paypalhttp (~> 1.0.1)
+    paypalhttp (1.0.1)
     popper_js (2.11.8)
     psych (5.2.0)
       stringio
@@ -438,6 +441,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  paypal-checkout-sdk
   popper_js (~> 2.11.6)
   puma (>= 5.0)
   rails (~> 7.2.2)

@@ -1,3 +1,6 @@
+<% # Header %>
+<%= render "shared/header" %>
+
 <div class="container my-5">
   <h1 class="text-center">Order Details</h1>
   <p><strong>Order ID:</strong> <%= @order.id %></p>
@@ -33,3 +36,6 @@
 
   <%= link_to "Back to Orders", user_profile_path, class: "btn btn-secondary" %>
 </div>
+
+<% # Footer %>
+<%= render "shared/footer" %>

@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem "rubocop-rails", require: false
+
 gem "stringio", "3.0.1"
 gem "sassc-rails", ">= 2.1.2"
 gem "bootstrap", "~> 5.3.0"

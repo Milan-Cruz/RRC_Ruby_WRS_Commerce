@@ -22,7 +22,27 @@
 
   </head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <% if flash.any? %>
+    <div id="flash-messages">
+      <% flash.each do |type, message| %>
+        <div class="flash-message <%= type %>">
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= yield %>
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const flashMessages = document.getElementById('flash-messages');
+    if (flashMessages) {
+      setTimeout(() => {
+        flashMessages.remove(); // Removes the flash message after 5 seconds
+      }, 5000); // 5 seconds
+    }
+  });
+</script>
 </html>

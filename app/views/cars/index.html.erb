@@ -55,11 +55,12 @@
             </div>
             <!-- Car Image -->
             <img 
-              src="https://via.placeholder.com/90x120" 
-              alt="<%= car.make %> <%= car.model %> Image" 
-              class="rounded"
-              style="height: 100%; flex: 1; object-fit: cover;"
-            >
+            src="<%= car.image.attached? ? url_for(car.image) : "https://via.placeholder.com/90x120" %>" 
+            alt="<%= car.make %> <%= car.model %> Image" 
+            class="rounded"
+            style="height: 100%; flex: 1; object-fit: cover;"
+          >
+          
           </div>
         </div>
       <% end %>

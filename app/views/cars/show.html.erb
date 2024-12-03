@@ -1,3 +1,6 @@
+<% # Header %>
+<%= render "shared/header" %>
+
 <div class="container my-5">
   <div class="card shadow">
     <div class="card-header bg-primary text-white">
@@ -7,7 +10,11 @@
       <div class="row">
         <!-- Car Image -->
         <div class="col-md-6">
-          <img src="https://via.placeholder.com/500x300" class="img-fluid rounded mb-3" alt="<%= @car.make %> <%= @car.model %>">
+          <% if @car.image.attached? %>
+            <%= image_tag @car.image, class: "img-fluid rounded mb-3", alt: "#{@car.make} #{@car.model}" %>
+          <% else %>
+            <img src="https://via.placeholder.com/500x300" class="img-fluid rounded mb-3" alt="<%= @car.make %> <%= @car.model %>">
+          <% end %>
         </div>
         <!-- Car Details -->
         <div class="col-md-6">
@@ -26,8 +33,6 @@
           <%= button_to "Add to Cart", add_item_cart_path(car_id: @car.id, quantity: 1),
                         method: :post,
                         class: "btn btn-primary btn-sm d-inline-block mt-2" %>
-
-
         </div>
       </div>
     </div>
@@ -37,3 +42,6 @@
     </div>
   </div>
 </div>
+
+<% # Footer %>
+<%= render "shared/footer" %>

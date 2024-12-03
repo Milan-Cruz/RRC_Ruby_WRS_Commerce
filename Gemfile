@@ -17,6 +17,8 @@ gem "devise"
 
 # For image uploads
 gem "image_processing"
+gem "mini_magick"
+gem "ruby-vips"
 gem "active_storage_validations"
 
 # Pagination

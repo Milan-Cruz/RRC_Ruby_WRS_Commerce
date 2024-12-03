@@ -443,6 +443,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  mini_magick
   paypal-checkout-sdk
   popper_js (~> 2.11.6)
   puma (>= 5.0)
@@ -451,6 +452,7 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   rubocop-rails-omakase
+  ruby-vips
   sassc-rails (>= 2.1.2)
   selenium-webdriver
   sprockets-rails

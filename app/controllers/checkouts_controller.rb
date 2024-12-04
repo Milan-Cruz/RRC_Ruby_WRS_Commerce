@@ -27,19 +27,19 @@ class CheckoutsController < ApplicationController
         total_price: subtotal + taxes[:total],
         gst: taxes[:gst],
         pst: taxes[:pst],
-        status: params[:payment_method] == "paypal" ? "new" : "paid", # Status ajustado
+        status: params[:payment_method] == "paypal" ? "new" : "paid",
       )
 
       add_order_items(@order)
 
-      session[:cart] = {} # Zera o carrinho após a criação da ordem
+      session[:cart] = {} # Clear the cart after order creation
 
       if params[:payment_method] == "paypal"
-        # Redireciona para PayPal
+        # Redirect to PayPal
         approval_url = initialize_paypal_payment(@order)
         redirect_to approval_url
       else
-        # Redireciona para o show da ordem
+        # Redirect to the order show page
         redirect_to order_path(@order), notice: "Order placed successfully! Pay later in your account."
       end
     end
@@ -48,6 +48,8 @@ class CheckoutsController < ApplicationController
   end
 
   def finalize_order
+    status = params[:status] || "new"
+
     ActiveRecord::Base.transaction do
       subtotal = calculate_total
       taxes = calculate_taxes(subtotal)
@@ -56,14 +58,14 @@ class CheckoutsController < ApplicationController
         total_price: subtotal + taxes[:total],
         gst: taxes[:gst],
         pst: taxes[:pst],
-        status: "new",
+        status: status, # Set the status dynamically
       )
 
       add_order_items(@order)
-      session[:cart] = {} # Zera o carrinho
+      session[:cart] = {} # Clear the cart after finalizing the order
     end
 
-    redirect_to order_path(@order), notice: "Order finalized successfully! You can pay later."
+    redirect_to order_path(@order), notice: "Order finalized successfully! Status: #{status}."
   rescue StandardError => e
     redirect_to checkout_path, alert: "An error occurred while finalizing the order: #{e.message}"
   end
@@ -101,7 +103,7 @@ class CheckoutsController < ApplicationController
 
     session[:cart].each do |car_id, quantity|
       car = cars[car_id.to_i]
-      next unless car # Ignora carros inválidos
+      next unless car # Ignore invalid cars
 
       order.order_items.create!(
         car: car,

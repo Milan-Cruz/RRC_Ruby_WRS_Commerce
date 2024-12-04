@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "static_pages/about"
+  get "static_pages/contact"
   # Root path
   root "home#index"
 
@@ -49,6 +51,9 @@ Rails.application.routes.draw do
                      }, sign_out_via: [:delete, :get]
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  get "/about", to: "static_pages#about", as: :about
+  get "/contact", to: "static_pages#contact", as: :contact
 
   # Health check route
   get "up", to: "rails/health#show", as: :rails_health_check

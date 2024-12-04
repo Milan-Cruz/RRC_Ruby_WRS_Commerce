@@ -1,2 +1,14 @@
-<h1>StaticPages#about</h1>
-<p>Find me in app/views/static_pages/about.html.erb</p>
+<div class="d-flex flex-column min-vh-100">
+<% # Header %>
+<%= render "shared/header" %>
+
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 container my-5">
+    <h1>About Us</h1>
+    <p><%= @about.description %></p>
+  </div>
+
+  <% # Footer %>
+  <%= render "shared/footer" %>
+</div>

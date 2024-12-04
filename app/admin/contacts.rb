@@ -2,13 +2,24 @@ ActiveAdmin.register Contact do
   permit_params :address, :email, :phone, :opening_hours
 
   form do |f|
-    f.inputs "Contact Page Content" do
-      f.input :address
-      f.input :email
-      f.input :phone
-      f.input :opening_hours, as: :text
+    f.inputs "Edit Contact Page Details" do
+      f.input :address, as: :string
+      f.input :email, as: :string
+      f.input :phone, as: :string
+      f.input :opening_hours, as: :text, input_html: { rows: 5 }
     end
     f.actions
+  end
+
+  show do
+    attributes_table do
+      row :address
+      row :email
+      row :phone
+      row :opening_hours do |contact|
+        simple_format(contact.opening_hours)
+      end
+    end
   end
 
   index do
@@ -17,11 +28,9 @@ ActiveAdmin.register Contact do
     column :address
     column :email
     column :phone
-    column :opening_hours
-    column :updated_at
+    column :opening_hours do |contact|
+      truncate(contact.opening_hours, length: 100)
+    end
     actions
   end
-
-  filter :email
-  filter :updated_at
 end

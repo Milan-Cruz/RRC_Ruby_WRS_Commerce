@@ -132,4 +132,30 @@ cars = Car.all
   order.update!(total_price: total_price + gst_amount + pst_amount)
 end
 
+# Seed About Page
+About.find_or_create_by!(description: <<~ABOUT
+                           Business Description:
+                           WRS Garage is a Winnipeg-based business with 10 employees that has been operating for over five years. 
+                           The company specializes in sourcing and selling used cars with specific trim levels, options, and features that match buyer preferences, 
+                           including amenities like sunroofs, leather seats, and advanced safety features. 
+                           Currently, they sell their vehicles through local classified ads and partner dealerships, aiming to expand their reach by providing an easy-to-use online marketplace.
+
+                           Target Demographic:
+                           Our primary audience consists of Winnipeg-based car enthusiasts and buyers aged 25-50 who have specific vehicle requirements in mind. 
+                           These are customers looking for particular trims or features in used vehicles but who lack a centralized platform to compare options and get historical pricing insights.
+                         ABOUT
+)
+
+# Seed Contact Page
+Contact.find_or_create_by!(
+  address: "123 Main Street, Winnipeg, MB, Canada",
+  email: "contact@wrsgarage.com",
+  phone: "+1-204-555-1234",
+  opening_hours: <<~HOURS
+    Monday to Friday: 9:00 AM - 5:00 PM
+    Saturday: 10:00 AM - 3:00 PM
+    Sunday: Closed
+  HOURS
+)
+
 puts "Seeding completed!"
